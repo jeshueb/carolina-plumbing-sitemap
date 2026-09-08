@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Carolina Plumbing — Interactive Website Sitemap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --home:#1F1F1F;
+    --l1:#966746;
+    --l2:#595959;
+    --l3:#A7A9AC;
+    --l3-text:#262626;
+    --line:#C7CBCF;
+    --page-bg:#FAFAF9;
+    --gold:#B08A3E;
+    --gold-bg:#B08A3E;
+    --tier-min:#A8C4AC;
+    --tier-primary:#6B9171;
+    --tier-visionary:#3E5C42;
+    --new:#4C6B4F;
+    --ink:#222733;
+    --muted:#6B7077;
+    --tip-bg:#1F1F1F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--page-bg);font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);}
+
+  /* ---------- HEADER ---------- */
+  .page{max-width:1900px;margin:0 auto;padding:28px 32px 90px 32px;}
+  .brand-header{font-family:'Manrope','-apple-system',"Segoe UI",Helvetica,Arial,sans-serif;font-size:23px;font-weight:800;color:#966746;letter-spacing:0.2px;margin:0 0 14px 0;}
+  .h-title{font-size:22px;font-weight:700;color:#173A63;margin:0;}
+  .h-sub{font-size:14.5px;font-weight:600;color:var(--l1);margin:4px 0 2px 0;}
+  .h-note{font-size:12px;color:var(--muted);margin:0 0 18px 0;}
+  .toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px 18px;background:#fff;border:1px solid #E4E5E7;border-radius:6px;margin-bottom:22px;}
+  .toolbar-instructions{font-size:12px;color:var(--muted);}
+  .toolbar-instructions b{color:var(--ink);}
+  .toolbar-btns button{font-family:inherit;font-size:12px;font-weight:600;color:#fff;background:#173A63;border:none;border-radius:4px;padding:7px 14px;margin-left:8px;cursor:pointer;}
+  .toolbar-btns button:hover{background:#1F4774;}
+  .legend{display:flex;flex-wrap:wrap;align-items:center;}
+  .legend-item{display:flex;align-items:center;font-size:11.2px;color:var(--ink);white-space:nowrap;margin-right:14px;margin-bottom:8px;}
+  .lg-sw{display:inline-block;width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-right:6px;}
+  .lg-badge{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;color:#fff;font-size:9px;font-weight:800;flex-shrink:0;margin-right:6px;}
+  .lg-sep{width:1px;height:16px;background:#E0E2E4;margin-right:14px;}
+
+  /* ---------- TREE ROOT ---------- */
+  .tree-scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:14px;}
+  .tree-root{position:relative;}
+  .home-wrap{display:flex;justify-content:center;position:relative;padding-bottom:22px;}
+  .home-box{position:relative;background:var(--home);color:#fff;font-weight:700;font-size:14px;padding:9px 26px;border-radius:5px;letter-spacing:0.3px;}
+  .home-wrap::after{content:'';position:absolute;left:50%;bottom:0;width:0;height:22px;border-left:1.5px solid var(--line);transform:translateX(-50%);}
+
+  .l1-row{display:flex;flex-wrap:nowrap;padding-top:22px;position:relative;}
+  .l1-row::before{content:'';position:absolute;left:0;top:0;width:2154px;height:0;border-top:1.5px solid #AEB4BA;}
+  .l1-row > .col{flex:0 0 250px;width:250px;position:relative;margin-right:22px;}
+  .l1-row > .col:last-child{margin-right:0;}
+  .l1-row > .col::before{content:'';position:absolute;left:50%;top:-22px;width:0;height:22px;border-left:1.5px solid var(--line);transform:translateX(-50%);}
+  .l1-row > .col.col-gap-after{margin-right:70px;}
+
+  /* ---------- GENERIC NODE / BOX ---------- */
+  .node{position:relative;}
+  .box-row{position:relative;display:flex;align-items:center;padding:3px 0;}
+  summary.box-row{cursor:pointer;list-style:none;}
+  summary.box-row::-webkit-details-marker{display:none;}
+
+  .l1-row > .col > .node{text-align:center;}
+  .l1-row > .col > .node > .box-row{display:inline-flex;}
+  .l1-row > .col > .node > .children-wrap{text-align:left;}
+
+  .children-wrap{margin-left:16px;padding-left:16px;border-left:1.5px solid var(--line);display:flex;flex-direction:column;padding-top:8px;padding-bottom:2px;position:relative;}
+  .children-wrap > .node{margin-bottom:6px;}
+  .children-wrap > .node:last-child{margin-bottom:0;}
+  .children-wrap > .node > .box-row::before{content:'';position:absolute;left:-16px;top:50%;width:16px;height:0;border-top:1.5px solid var(--line);}
+  .children-wrap > .node > .box-row::after{content:'';position:absolute;left:-19px;top:50%;width:6px;height:6px;border-radius:50%;background:var(--line);transform:translateY(-50%);}
+
+  /* Bridge line: connects the centered top-level box down to its (left-indented) children spine */
+  .l1-row > .col > details.node > .children-wrap::before{content:'';position:absolute;left:0;top:0;width:109px;height:0;border-top:1.5px solid var(--line);}
+
+  .chevron{flex-shrink:0;width:11px;font-size:10px;color:var(--muted);display:inline-block;transition:transform .12s ease;transform:rotate(90deg);margin-right:6px;}
+  details:not([open]) > summary .chevron{transform:rotate(0deg);}
+  .leaf-spacer{display:inline-block;width:11px;flex-shrink:0;margin-right:6px;}
+
+  .box{position:relative;display:inline-block;vertical-align:middle;max-width:100%;padding:5px 12px;border-radius:4px;font-weight:600;line-height:1.15;white-space:nowrap;}
+  .box .label{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle;}
+  .box.lvl1{background:var(--l1);color:#fff;font-size:12.5px;max-width:246px;}
+  .box.lvl2{background:var(--l2);color:#fff;font-size:11.8px;max-width:228px;}
+  .box.lvl3{background:var(--l3);color:var(--l3-text);font-size:11.3px;max-width:222px;}
+
+  .badge{position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800;border:1.5px solid #fff;flex-shrink:0;}
+  .b-opt{background:var(--gold-bg);}
+  .b-min{background:var(--tier-min);color:#1F2E22;}
+  .b-primary{background:var(--tier-primary);}
+  .b-visionary{background:var(--tier-visionary);}
+  .box.flag-opt{box-shadow:0 0 0 2px var(--gold-bg);}
+  .box.flag-min{box-shadow:0 0 0 2px var(--tier-min);}
+  .box.flag-primary{box-shadow:0 0 0 2px var(--tier-primary);}
+  .box.flag-visionary{box-shadow:0 0 0 2px var(--tier-visionary);}
+  .box.flag-new{box-shadow:0 0 0 2px var(--new);}
+  .b-new{background:var(--new);}
+
+  .box.strategic .label{font-weight:800;}
+  .box.muted-existing{opacity:0.92;}
+
+  /* ---------- TOOLTIP ---------- */
+  .tip{visibility:hidden;opacity:0;position:absolute;left:50%;transform:translateX(-50%);top:100%;margin-top:6px;z-index:40;background:var(--tip-bg);color:#fff;border-radius:5px;padding:8px 10px;font-size:11px;line-height:1.5;width:max-content;max-width:270px;font-weight:400;transition:opacity .1s ease;pointer-events:none;}
+  .box-row:hover .tip{visibility:visible;opacity:1;}
+  .tip-crumb{display:block;color:#B9C2CD;font-size:10px;margin-bottom:3px;}
+  .tip-extra:empty{display:none;}
+
+  .footer-note{margin-top:34px;font-size:11px;color:var(--muted);border-left:2px solid #173A63;padding-left:12px;max-width:680px;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="brand-header">Valve + Meter Performance Marketing</div>
+  <h1 class="h-title">Carolina Plumbing — Website Sitemap</h1>
+  <div class="h-sub">Interactive site architecture, current pages + HERO service-area expansion</div>
+  <div class="h-note">Colors indicate navigation depth. Badges indicate 90-day and HERO status.</div>
+
+  <div class="toolbar">
+    <div class="legend">
+      <span class="legend-item"><span class="lg-sw" style="background:var(--home);"></span>Home</span>
+      <span class="legend-item"><span class="lg-sw" style="background:var(--l1);"></span>Level 1</span>
+      <span class="legend-item"><span class="lg-sw" style="background:var(--l2);"></span>Level 2</span>
+      <span class="legend-item"><span class="lg-sw" style="background:var(--l3);"></span>Level 3</span>
+      <span class="lg-sep"></span>
+      <span class="legend-item"><span class="lg-badge" style="background:var(--gold-bg);">O</span>Optimized, 90 days</span>
+      <span class="lg-sep"></span>
+      <span class="legend-item"><span class="lg-badge" style="background:var(--tier-min);color:#1F2E22;">M</span>HERO — Minimum</span>
+      <span class="legend-item"><span class="lg-badge" style="background:var(--tier-primary);">P</span>HERO — Primary</span>
+      <span class="legend-item"><span class="lg-badge" style="background:var(--tier-visionary);">V</span>HERO — Visionary</span>
+    </div>
+    <div class="toolbar-btns">
+      <button id="expandAll" type="button">Expand all</button>
+      <button id="collapseAll" type="button">Collapse all</button>
+    </div>
+  </div>
+  <div class="toolbar-instructions" style="margin:-10px 0 20px 2px;">Click a branch to expand or collapse it. <b>Hover any page</b> for its full name, path, and 90-day / HERO notes. Primary builds on Minimum; Visionary builds on both.</div>
+
+  <div class="tree-root">
+    <div class="home-wrap">
+      <div class="home-box">HOME<span class="badge b-opt">O</span></div>
+    </div>
+
+    <div class="tree-scroll"><div class="l1-row">
+
+      <!-- ================= ABOUT ================= -->
+      <div class="col">
+        <details class="node" open data-name="About">
+          <summary class="box-row">
+            <span class="chevron">▸</span>
+            <span class="box lvl1"><span class="label">About</span></span>
+            <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+          </summary>
+          <div class="children-wrap">
+            <div class="node leaf" data-name="Testimonials"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2"><span class="label">Testimonials</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. Technical review recommends a clear internal link path from relevant site sections.</span></span></div></div>
+            <div class="node leaf" data-name="Projects"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2"><span class="label">Projects</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. Technical review recommends a clear internal link path from relevant site sections.</span></span></div></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- ================= SERVICES ================= -->
+      <div class="col">
+        <details class="node" open data-name="Services">
+          <summary class="box-row">
+            <span class="chevron">▸</span>
+            <span class="box lvl1 flag-opt"><span class="label">Services</span><span class="badge b-opt">O</span></span>
+            <span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing hub, optimized in the first 90 days. Clarifies the service hierarchy and directs internal authority into priority pages and the final HERO destinations.</span></span>
+          </summary>
+          <div class="children-wrap">
+            <div class="node leaf" data-name="Residential Plumber"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Residential Plumber</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page, optimized in the first 90 days — kept only if it survives the HERO migration. If replaced, its query role transfers to the new HERO destination.</span></span></div></div>
+            <div class="node leaf" data-name="Drain Cleaning"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Drain Cleaning</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page, optimized in the first 90 days to improve service differentiation, Kernersville relevance, and the relationship to sewer content.</span></span></div></div>
+            <div class="node leaf" data-name="Emergency Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2"><span class="label">Emergency Plumbing</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing sitewide page. Kernersville is also getting a dedicated Emergency Plumbing page under the Visionary HERO package.</span></span></div></div>
+            <div class="node leaf" data-name="Gas Line Repair"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2"><span class="label">Gas Line Repair</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span></div></div>
+            <div class="node leaf" data-name="Water Heater Services"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Water Heater Services</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page, optimized in the first 90 days if it remains the intended owner after HERO. Otherwise supports the new HERO Water Heaters pages through internal links.</span></span></div></div>
+            <div class="node leaf" data-name="Water Line Repair"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Water Line Repair</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page, optimized in the first 90 days to strengthen qualified local service intent over irrelevant geographic impressions.</span></span></div></div>
+            <div class="node leaf" data-name="Pipe Repair"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Pipe Repair</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page ("Pipe Repair / Pipe Services" in the 90-day plan), optimized in the first 90 days — kept only if it survives HERO. Otherwise its role transfers to the new Kernersville Pipe Services page.</span></span></div></div>
+            <div class="node leaf" data-name="Commercial Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Commercial Plumbing</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page, optimized in the first 90 days to clarify service role, local relevance, and trust proof.</span></span></div></div>
+            <div class="node leaf" data-name="Sewer Cleaning"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-opt"><span class="label">Sewer Cleaning</span><span class="badge b-opt">O</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page, optimized in the first 90 days. Kernersville is also getting a dedicated Sewer Services page under the Visionary HERO package.</span></span></div></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- ================= MAINTENANCE ================= -->
+      <div class="col">
+        <div class="node leaf" data-name="Maintenance">
+          <div class="box-row"><span class="box lvl1"><span class="label">Maintenance</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page (/maintenance-service-agreement/).</span></span></div>
+        </div>
+      </div>
+
+      <!-- ================= SPECIALS ================= -->
+      <div class="col">
+        <div class="node leaf" data-name="Specials">
+          <div class="box-row"><span class="box lvl1"><span class="label">Specials</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page (/promos/).</span></span></div>
+        </div>
+      </div>
+
+      <!-- ================= CAREERS ================= -->
+      <div class="col">
+        <div class="node leaf" data-name="Careers">
+          <div class="box-row"><span class="box lvl1"><span class="label">Careers</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span></div>
+        </div>
+      </div>
+
+      <!-- ================= BLOG ================= -->
+      <div class="col">
+        <details class="node" open data-name="Blog">
+          <summary class="box-row">
+            <span class="chevron">▸</span>
+            <span class="box lvl1"><span class="label">Blog</span></span>
+            <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+          </summary>
+          <div class="children-wrap">
+            <div class="node leaf" data-name="Drain Cleaning vs. Sewer Cleaning: What's the Difference?"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-new"><span class="label">Drain vs. Sewer Cleaning (article)</span><span class="badge b-new">N</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New article, first 90 days. Helps homeowners tell the two problems apart. Primary destination: Drain Cleaning / Sewer Cleaning.</span></span></div></div>
+            <div class="node leaf" data-name="Repair or Replace a Water Heater: How Do You Decide?"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-new"><span class="label">Repair or Replace Water Heater (article)</span><span class="badge b-new">N</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New article, first 90 days. Answers a high-intent decision-stage question. Primary destination: Water Heater Services (or the final HERO water-heater owner).</span></span></div></div>
+            <div class="node leaf" data-name="Signs a Plumbing Leak May Be Coming From a Damaged Pipe"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2 flag-new"><span class="label">Signs of a Damaged-Pipe Leak (article)</span><span class="badge b-new">N</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New article, first 90 days. Explains warning signs. Primary destination: Pipe Repair / Leak Detection / Water Line Repair.</span></span></div></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- ================= CONTACT ================= -->
+      <div class="col">
+        <div class="node leaf" data-name="Contact">
+          <div class="box-row"><span class="box lvl1"><span class="label">Contact</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span></div>
+        </div>
+      </div>
+
+      <!-- ================= SERVICE AREAS ================= -->
+      <div class="col">
+        <details class="node" open data-name="Service Areas">
+          <summary class="box-row">
+            <span class="chevron">▸</span>
+            <span class="box lvl1"><span class="label">Service Areas</span></span>
+            <span class="tip"><span class="tip-crumb"></span><span class="tip-extra">19 markets are in the HERO scope. Kernersville is the home market and receives the deepest build.</span></span>
+          </summary>
+          <div class="children-wrap">
+
+
+            <details class="node" open data-name="Advance, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Advance, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New service area — Advance has no current page. All pages below are new under HERO.</span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Advance, NC — a brand-new service area with no current page.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Advance, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Advance, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <div class="node leaf" data-name="Belews Creek, NC">
+              <div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2"><span class="label">Belews Creek, NC</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page (/plumber-belews-creek/). Not currently part of the 19-market HERO service-area scope.</span></span></div>
+            </div>
+
+            <details class="node" open data-name="Brown Summit, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Brown Summit, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New service area — Brown Summit has no current page. All pages below are new under HERO.</span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Brown Summit, NC — a brand-new service area with no current page.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Brown Summit, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Brown Summit, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Burlington, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Burlington, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-burlington/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-burlington/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Burlington once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Burlington, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Burlington, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Burlington, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Clemmons, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Clemmons, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-clemmons/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-clemmons/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Clemmons once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Clemmons, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Clemmons, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Clemmons, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <div class="node leaf" data-name="Colfax, NC">
+              <div class="box-row"><span class="leaf-spacer"></span><span class="box lvl2"><span class="label">Colfax, NC</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page (/plumber-colfax/). Not currently part of the 19-market HERO service-area scope.</span></span></div>
+            </div>
+
+            <details class="node" open data-name="Greensboro, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Greensboro, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-greensboro/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-greensboro/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Greensboro once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Greensboro, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Greensboro, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Greensboro, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="High Point, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">High Point, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-high-point/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-high-point/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for High Point once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for High Point, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for High Point, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for High Point, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Jamestown, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Jamestown, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New service area — Jamestown has no current page. All pages below are new under HERO.</span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Jamestown, NC — a brand-new service area with no current page.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Jamestown, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Jamestown, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Kernersville, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2 strategic"><span class="label">Kernersville, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Home market and headquarters. Receives the deepest HERO build of all 19 service areas — the homepage remains the primary broad Kernersville destination.</span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-kernersville/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-kernersville/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. The homepage remains Kernersville's primary destination; this page may be retired and redirected once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Local presence, proof, and service navigation for Kernersville, without duplicating the homepage's broad intent.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">Pillar — Plumbing</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package (Kernersville only). Organizes the plumbing category with a role distinct from the homepage.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — General Contracting"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — General Contracting</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Introduces a General Contracting pillar for Kernersville, supporting the remodeling offering.</span></span></div></div>
+                <div class="node leaf" data-name="Pipe Services"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pipe Services</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Kernersville-specific pipe services page. Related to the sitewide Pipe Repair page.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Water Heaters</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package (Kernersville reaches this tier earlier than other markets). Related to the sitewide Water Heater Services page.</span></span></div></div>
+                <div class="node leaf" data-name="Emergency Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Emergency Plumbing</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Kernersville-specific emergency plumbing page. Related to the sitewide Emergency Plumbing page.</span></span></div></div>
+                <div class="node leaf" data-name="Leak Detection &amp; Repair"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Leak Detection &amp; Repair</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. New Kernersville-specific leak detection and repair page; no current sitewide equivalent.</span></span></div></div>
+                <div class="node leaf" data-name="Sewer Services"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Sewer Services</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Kernersville-specific sewer page. Related to the sitewide Sewer Cleaning page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="King, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">King, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-king/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-king/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for King once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for King, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for King, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for King, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Lewisville, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Lewisville, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-lewisville/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-lewisville/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Lewisville once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Lewisville, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Lewisville, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Lewisville, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Lexington, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Lexington, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-lexington/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-lexington/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Lexington once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Lexington, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Lexington, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Lexington, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Oak Ridge, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Oak Ridge, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-oak-ridge/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-oak-ridge/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Oak Ridge once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Oak Ridge, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Oak Ridge, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Oak Ridge, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Pfafftown, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Pfafftown, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-pfafftown/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-pfafftown/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Pfafftown once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Pfafftown, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Pfafftown, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Pfafftown, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Stokesdale, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Stokesdale, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-stokesdale/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-stokesdale/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Stokesdale once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Stokesdale, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Stokesdale, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Stokesdale, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Summerfield, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Summerfield, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-summerfield/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-summerfield/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Summerfield once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Summerfield, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Summerfield, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Summerfield, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Thomasville, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Thomasville, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-thomasville/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-thomasville/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Thomasville once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Thomasville, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Thomasville, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Thomasville, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Walkertown, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Walkertown, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-walkertown/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-walkertown/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Walkertown once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Walkertown, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Walkertown, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Walkertown, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Walnut Cove, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Walnut Cove, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-walnut-cove/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-walnut-cove/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Walnut Cove once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Walnut Cove, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Walnut Cove, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Walnut Cove, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+
+            <details class="node" open data-name="Winston-Salem, NC">
+              <summary class="box-row">
+                <span class="chevron">▸</span>
+                <span class="box lvl2"><span class="label">Winston-Salem, NC</span></span>
+                <span class="tip"><span class="tip-crumb"></span><span class="tip-extra"></span></span>
+              </summary>
+              <div class="children-wrap">
+                <div class="node leaf" data-name="/plumber-winston-salem/ (existing)"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3"><span class="label">/plumber-winston-salem/ (existing)</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">Existing page. May be retired and 301-redirected to the new HERO Pillar page for Winston-Salem once HERO launches.</span></span></div></div>
+                <div class="node leaf" data-name="City Hub"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-min"><span class="label">City Hub</span><span class="badge b-min">M</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Minimum package. Establishes local presence, proof, and service navigation for Winston-Salem, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Pillar — Plumbing"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-primary"><span class="label">Pillar — Plumbing</span><span class="badge b-primary">P</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Primary package. Owns general plumbing search intent for Winston-Salem, NC.</span></span></div></div>
+                <div class="node leaf" data-name="Water Heaters"><div class="box-row"><span class="leaf-spacer"></span><span class="box lvl3 flag-visionary"><span class="label">Water Heaters</span><span class="badge b-visionary">V</span></span><span class="tip"><span class="tip-crumb"></span><span class="tip-extra">New page — Visionary package. Water heater page for Winston-Salem, NC. Related to the sitewide Water Heater Services page.</span></span></div></div>
+              </div>
+            </details>
+          </div>
+        </details>
+      </div>
+
+    </div></div>
+  </div>
+
+  <div class="footer-note">HERO expands the current site into a true local-service-area architecture: Minimum establishes a City Hub in all 19 markets, Primary adds a Plumbing Pillar in each (Kernersville already has one, plus a General Contracting Pillar, Pipe Services, and Water Heaters), and Visionary adds Water Heaters in the remaining markets plus Emergency Plumbing, Leak Detection &amp; Repair, and Sewer Services in Kernersville. Existing pages with search history are optimized in place where they survive the migration. Valve+Meter Performance Marketing — Carolina Plumbing 90-Day SEO Plan &amp; HERO Scope.</div>
+  <div style="margin-top:10px;font-size:9.5px;color:#B7BBBE;">Build: 2026-09-08 rev.4 — nav reordered to live site order; connecting-line addition reverted.</div>
+
+</div>
+
+<script>
+  (function(){
+    // Expand / collapse all
+    var expandBtn = document.getElementById('expandAll');
+    var collapseBtn = document.getElementById('collapseAll');
+    function allDetails(){ return document.querySelectorAll('details.node'); }
+    if(expandBtn){ expandBtn.addEventListener('click', function(){
+      var els = allDetails();
+      for(var i=0;i<els.length;i++){ els[i].open = true; }
+    }); }
+    if(collapseBtn){ collapseBtn.addEventListener('click', function(){
+      var els = allDetails();
+      for(var i=0;i<els.length;i++){ els[i].open = false; }
+    }); }
+
+    // Breadcrumb generation
+    function isNode(el){ return el && el.classList && el.classList.contains('node'); }
+    function nearestAncestorNode(el){
+      var p = el.parentElement;
+      while(p && !isNode(p)){ p = p.parentElement; }
+      return p;
+    }
+    function breadcrumbFor(node){
+      var names = [];
+      var current = node;
+      while(current){
+        var nm = current.getAttribute('data-name');
+        if(nm){ names.unshift(nm); }
+        current = nearestAncestorNode(current);
+      }
+      return 'Home' + (names.length ? '  \u2192  ' + names.join('  \u2192  ') : '');
+    }
+    var nodes = document.querySelectorAll('.node');
+    for(var i=0;i<nodes.length;i++){
+      var n = nodes[i];
+      var crumbEl = n.querySelector('.tip-crumb');
+      if(crumbEl){ crumbEl.textContent = breadcrumbFor(n); }
+    }
+  })();
+</script>
+</body>
+</html>
